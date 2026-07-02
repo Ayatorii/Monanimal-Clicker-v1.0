@@ -189,6 +189,10 @@ export default function MonanimalCharacter() {
         className="combo-screen-glow absolute inset-y-0 right-0 w-[73px] md:w-[125px] z-40 pointer-events-none"
         style={{ background: "linear-gradient(to left, var(--combo-glow-color, transparent), transparent)" }}
       />
+      <div
+        className="combo-screen-glow absolute inset-x-0 bottom-0 h-[73px] md:h-[125px] z-40 pointer-events-none"
+        style={{ background: "linear-gradient(to top, var(--combo-glow-color, transparent), transparent)" }}
+      />
       {/* ENVIRONMENT BACKGROUND — true crossfade */}
       <AnimatePresence mode="sync">
         <motion.div
