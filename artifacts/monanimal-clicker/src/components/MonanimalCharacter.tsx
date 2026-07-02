@@ -545,8 +545,11 @@ export default function MonanimalCharacter() {
                   {currentComboLevel.label}
                 </span>
                 <span
-                  className="text-[15px] md:text-[17px] font-bold uppercase tracking-widest text-white leading-none"
+                  className="text-[15px] md:text-[17px] uppercase tracking-widest leading-none"
                   style={{
+                    fontFamily: "'Baloo 2', sans-serif",
+                    fontWeight: 800,
+                    color: "#fff",
                     WebkitTextStroke: "1.5px #000",
                     paintOrder: "stroke fill",
                   }}
