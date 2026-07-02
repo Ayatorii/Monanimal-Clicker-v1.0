@@ -19,14 +19,6 @@ function GameInner() {
 
   return (
     <div className="h-[100dvh] w-full flex flex-col bg-background text-foreground overflow-hidden font-sans relative">
-      <div
-        className="combo-screen-glow fixed inset-y-0 left-0 w-28 md:w-48 z-40 pointer-events-none"
-        style={{ background: "linear-gradient(to right, var(--combo-glow-color, transparent), transparent)" }}
-      />
-      <div
-        className="combo-screen-glow fixed inset-y-0 right-0 w-28 md:w-48 z-40 pointer-events-none"
-        style={{ background: "linear-gradient(to left, var(--combo-glow-color, transparent), transparent)" }}
-      />
       <AchievementsModal open={showAchievements} onOpenChange={setShowAchievements} />
 
       <div className="relative z-20">
