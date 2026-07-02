@@ -518,8 +518,10 @@ export default function MonanimalCharacter() {
             >
               <div className="flex items-center gap-2">
                 <span
-                  className="font-black text-[23px] md:text-[25px] tracking-tight leading-none"
+                  className="text-[28px] md:text-[30px] tracking-tight leading-none"
                   style={{
+                    fontFamily: "'Baloo 2', sans-serif",
+                    fontWeight: 800,
                     color: currentComboLevel.color,
                     textShadow: `0 0 14px ${currentComboLevel.color}, 0 0 6px ${currentComboLevel.color}, -1.5px -1.5px 0 #000, 1.5px -1.5px 0 #000, -1.5px 1.5px 0 #000, 1.5px 1.5px 0 #000`,
                     WebkitTextStroke: "1.5px black",
@@ -528,7 +530,7 @@ export default function MonanimalCharacter() {
                   {currentComboLevel.label}
                 </span>
                 <span
-                  className="text-[13px] md:text-[15px] font-bold uppercase tracking-widest text-white leading-none"
+                  className="text-[15px] md:text-[17px] font-bold uppercase tracking-widest text-white leading-none"
                   style={{
                     textShadow:
                       "-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000",
