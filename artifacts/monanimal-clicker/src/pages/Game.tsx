@@ -6,7 +6,6 @@ import TopBar from "@/components/TopBar";
 import MonanimalCharacter from "@/components/MonanimalCharacter";
 import UpgradeShop from "@/components/UpgradeShop";
 import AchievementsModal from "@/components/AchievementsModal";
-import OnboardingModal from "@/components/OnboardingModal";
 
 function GameInner() {
   useGameLoop();
@@ -40,12 +39,6 @@ function GameInner() {
 }
 
 export default function Game() {
-  const hasPlayerId = Boolean(localStorage.getItem("monanimal-player-id"));
-
-  if (!hasPlayerId) {
-    return <OnboardingModal />;
-  }
-
   return (
     <GameProvider>
       <GameInner />

@@ -24,58 +24,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
-  /players/{id}:
-    get:
-      operationId: getPlayer
-      tags: [players]
-      summary: Load progress by playerId
-      parameters:
-        - name: id
-          in: path
-          required: true
-          schema: { type: string }
-      responses:
-        "200":
-          description: Found
-          content:
-            application/json:
-              schema: { $ref: "#/components/schemas/Player" }
-        "404":
-          description: Not found
-  /players:
-    post:
-      operationId: savePlayer
-      tags: [players]
-      summary: Create or update progress
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema: { $ref: "#/components/schemas/SavePlayerRequest" }
-      responses:
-        "200":
-          description: Saved
-          content:
-            application/json:
-              schema: { $ref: "#/components/schemas/Player" }
-  /players/recover/{code}:
-    get:
-      operationId: recoverPlayer
-      tags: [players]
-      summary: Recover progress by recovery code
-      parameters:
-        - name: code
-          in: path
-          required: true
-          schema: { type: string }
-      responses:
-        "200":
-          description: Found
-          content:
-            application/json:
-              schema: { $ref: "#/components/schemas/Player" }
-        "404":
-          description: Not found
 
 components:
   schemas:
@@ -86,17 +34,3 @@ components:
           type: string
       required:
         - status
-    Player:
-      type: object
-      properties:
-        id: { type: string }
-        recoveryCode: { type: string }
-        state: { type: object }
-      required: [id, recoveryCode, state]
-    SavePlayerRequest:
-      type: object
-      properties:
-        id: { type: string }
-        recoveryCode: { type: string }
-        state: { type: object }
-      required: [id, recoveryCode, state]

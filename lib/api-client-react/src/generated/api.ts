@@ -6,27 +6,21 @@
  * OpenAPI spec version: 0.1.0
  */
 import {
-  useMutation,
   useQuery
 } from '@tanstack/react-query';
 import type {
-  MutationFunction,
   QueryFunction,
   QueryKey,
-  UseMutationOptions,
-  UseMutationResult,
   UseQueryOptions,
   UseQueryResult
 } from '@tanstack/react-query';
 
 import type {
-  HealthStatus,
-  Player,
-  SavePlayerRequest
+  HealthStatus
 } from './api.schemas';
 
 import { customFetch } from '../custom-fetch';
-import type { ErrorType , BodyType } from '../custom-fetch';
+import type { ErrorType } from '../custom-fetch';
 
 type AwaitedInput<T> = PromiseLike<T> | T;
 
@@ -118,230 +112,6 @@ export function useHealthCheck<TData = Awaited<ReturnType<typeof healthCheck>>, 
  ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
 
   const queryOptions = getHealthCheckQueryOptions(options)
-
-  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
-
-  return withQueryKey(query, queryOptions.queryKey);
-}
-
-
-
-
-
-
-
-export const getGetPlayerUrl = (id: string,) => {
-
-
-
-
-  return `/api/players/${id}`
-}
-
-/**
- * @summary Load progress by playerId
- */
-export const getPlayer = async (id: string, options?: RequestInit): Promise<Player> => {
-
-  return customFetch<Player>(getGetPlayerUrl(id),
-  {
-    ...options,
-    method: 'GET'
-
-
-  }
-);}
-
-
-
-
-
-export const getGetPlayerQueryKey = (id: string,) => {
-    return [
-    `/api/players/${id}`
-    ] as const;
-    }
-
-
-export const getGetPlayerQueryOptions = <TData = Awaited<ReturnType<typeof getPlayer>>, TError = ErrorType<void>>(id: string, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getPlayer>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
-) => {
-
-const {query: queryOptions, request: requestOptions} = options ?? {};
-
-  const queryKey =  queryOptions?.queryKey ?? getGetPlayerQueryKey(id);
-
-
-
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof getPlayer>>> = ({ signal }) => getPlayer(id, { signal, ...requestOptions });
-
-
-
-
-
-   return  { queryKey, queryFn, enabled: id !== null && id !== undefined, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getPlayer>>, TError, TData> & { queryKey: QueryKey }
-}
-
-export type GetPlayerQueryResult = NonNullable<Awaited<ReturnType<typeof getPlayer>>>
-export type GetPlayerQueryError = ErrorType<void>
-
-
-/**
- * @summary Load progress by playerId
- */
-
-export function useGetPlayer<TData = Awaited<ReturnType<typeof getPlayer>>, TError = ErrorType<void>>(
- id: string, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getPlayer>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
-
- ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
-
-  const queryOptions = getGetPlayerQueryOptions(id,options)
-
-  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
-
-  return withQueryKey(query, queryOptions.queryKey);
-}
-
-
-
-
-
-
-
-export const getSavePlayerUrl = () => {
-
-
-
-
-  return `/api/players`
-}
-
-/**
- * @summary Create or update progress
- */
-export const savePlayer = async (savePlayerRequest: SavePlayerRequest, options?: RequestInit): Promise<Player> => {
-
-  return customFetch<Player>(getSavePlayerUrl(),
-  {
-    ...options,
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json', ...options?.headers },
-    body: JSON.stringify(savePlayerRequest)
-  }
-);}
-
-
-
-
-export const getSavePlayerMutationOptions = <TError = ErrorType<unknown>,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof savePlayer>>, TError,{data: BodyType<SavePlayerRequest>}, TContext>, request?: SecondParameter<typeof customFetch>}
-): UseMutationOptions<Awaited<ReturnType<typeof savePlayer>>, TError,{data: BodyType<SavePlayerRequest>}, TContext> => {
-
-const mutationKey = ['savePlayer'];
-const {mutation: mutationOptions, request: requestOptions} = options ?
-      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
-      options
-      : {...options, mutation: {...options.mutation, mutationKey}}
-      : {mutation: { mutationKey, }, request: undefined};
-
-
-
-
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof savePlayer>>, {data: BodyType<SavePlayerRequest>}> = (props) => {
-          const {data} = props ?? {};
-
-          return  savePlayer(data,requestOptions)
-        }
-
-
-
-
-
-
-  return  { mutationFn, ...mutationOptions }}
-
-    export type SavePlayerMutationResult = NonNullable<Awaited<ReturnType<typeof savePlayer>>>
-    export type SavePlayerMutationBody = BodyType<SavePlayerRequest>
-    export type SavePlayerMutationError = ErrorType<unknown>
-
-    /**
- * @summary Create or update progress
- */
-export const useSavePlayer = <TError = ErrorType<unknown>,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof savePlayer>>, TError,{data: BodyType<SavePlayerRequest>}, TContext>, request?: SecondParameter<typeof customFetch>}
- ): UseMutationResult<
-        Awaited<ReturnType<typeof savePlayer>>,
-        TError,
-        {data: BodyType<SavePlayerRequest>},
-        TContext
-      > => {
-      return useMutation(getSavePlayerMutationOptions(options));
-    }
-
-export const getRecoverPlayerUrl = (code: string,) => {
-
-
-
-
-  return `/api/players/recover/${code}`
-}
-
-/**
- * @summary Recover progress by recovery code
- */
-export const recoverPlayer = async (code: string, options?: RequestInit): Promise<Player> => {
-
-  return customFetch<Player>(getRecoverPlayerUrl(code),
-  {
-    ...options,
-    method: 'GET'
-
-
-  }
-);}
-
-
-
-
-
-export const getRecoverPlayerQueryKey = (code: string,) => {
-    return [
-    `/api/players/recover/${code}`
-    ] as const;
-    }
-
-
-export const getRecoverPlayerQueryOptions = <TData = Awaited<ReturnType<typeof recoverPlayer>>, TError = ErrorType<void>>(code: string, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof recoverPlayer>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
-) => {
-
-const {query: queryOptions, request: requestOptions} = options ?? {};
-
-  const queryKey =  queryOptions?.queryKey ?? getRecoverPlayerQueryKey(code);
-
-
-
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof recoverPlayer>>> = ({ signal }) => recoverPlayer(code, { signal, ...requestOptions });
-
-
-
-
-
-   return  { queryKey, queryFn, enabled: code !== null && code !== undefined, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof recoverPlayer>>, TError, TData> & { queryKey: QueryKey }
-}
-
-export type RecoverPlayerQueryResult = NonNullable<Awaited<ReturnType<typeof recoverPlayer>>>
-export type RecoverPlayerQueryError = ErrorType<void>
-
-
-/**
- * @summary Recover progress by recovery code
- */
-
-export function useRecoverPlayer<TData = Awaited<ReturnType<typeof recoverPlayer>>, TError = ErrorType<void>>(
- code: string, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof recoverPlayer>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
-
- ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
-
-  const queryOptions = getRecoverPlayerQueryOptions(code,options)
 
   const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
 

@@ -9,19 +9,3 @@ export interface HealthStatus {
   status: string;
 }
 
-export type PlayerState = { [key: string]: unknown };
-
-export interface Player {
-  id: string;
-  recoveryCode: string;
-  state: PlayerState;
-}
-
-export type SavePlayerRequestState = { [key: string]: unknown };
-
-export interface SavePlayerRequest {
-  id: string;
-  recoveryCode: string;
-  state: SavePlayerRequestState;
-}
-

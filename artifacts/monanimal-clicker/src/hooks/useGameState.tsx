@@ -13,23 +13,6 @@ import {
   getCharacterStage,
 } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
-export function getOrCreatePlayerId() {
-  let id = localStorage.getItem("monanimal-player-id");
-  if (!id) {
-    id = crypto.randomUUID();
-    localStorage.setItem("monanimal-player-id", id);
-  }
-  return id;
-}
-
-export function getOrCreateRecoveryCode() {
-  let code = localStorage.getItem("monanimal-recovery-code");
-  if (!code) {
-    code = Math.random().toString(36).slice(2, 10).toUpperCase();
-    localStorage.setItem("monanimal-recovery-code", code);
-  }
-  return code;
-}
 export interface GameState {
   coins: number;
   totalCoinsEarned: number;
@@ -153,26 +136,6 @@ export function GameProvider({ children }: { children: ReactNode }) {
     name: string;
     icon: string;
   } | null>(null);
-  useEffect(() => {
-    const playerId = getOrCreatePlayerId();
-    fetch(`/api/players/${playerId}`)
-      .then((res) => (res.ok ? res.json() : null))
-      .then((player) => {
-        if (!player || !player.state) return;
-        const serverState = player.state as GameState;
-        dispatch((prev) => {
-          const serverTime = serverState.lastSaveTime ?? 0;
-          const localTime = prev.lastSaveTime ?? 0;
-          return serverTime > localTime
-            ? { ...DEFAULT_STATE, ...serverState }
-            : prev;
-        });
-      })
-      .catch(() => {
-        // сервер недоступен — играем с тем, что есть в localStorage
-      });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
   React.useEffect(() => {
     if (offlineEarnedRef.current > 0) {
       toast({
@@ -293,18 +256,6 @@ export function GameProvider({ children }: { children: ReactNode }) {
       } catch (e) {
         // storage quota exceeded — silently ignore
       }
-
-      fetch("/api/players", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          id: getOrCreatePlayerId(),
-          recoveryCode: getOrCreateRecoveryCode(),
-          state: stateToSave,
-        }),
-      }).catch(() => {
-        // офлайн или сервер недоступен — не страшно, localStorage уже сохранил
-      });
     }, 2000);
     return () => clearTimeout(timer);
   }, [state]);
