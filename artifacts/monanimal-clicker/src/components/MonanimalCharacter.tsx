@@ -523,8 +523,9 @@ export default function MonanimalCharacter() {
                     fontFamily: "'Baloo 2', sans-serif",
                     fontWeight: 800,
                     color: currentComboLevel.color,
-                    textShadow: `0 0 14px ${currentComboLevel.color}, 0 0 6px ${currentComboLevel.color}, -1.5px -1.5px 0 #000, 1.5px -1.5px 0 #000, -1.5px 1.5px 0 #000, 1.5px 1.5px 0 #000`,
-                    WebkitTextStroke: "1.5px black",
+                    WebkitTextStroke: "2px #000",
+                    paintOrder: "stroke fill",
+                    filter: `drop-shadow(0 0 8px ${currentComboLevel.color})`,
                   }}
                 >
                   {currentComboLevel.label}
@@ -532,8 +533,8 @@ export default function MonanimalCharacter() {
                 <span
                   className="text-[15px] md:text-[17px] font-bold uppercase tracking-widest text-white leading-none"
                   style={{
-                    textShadow:
-                      "-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000",
+                    WebkitTextStroke: "1.5px #000",
+                    paintOrder: "stroke fill",
                   }}
                 >
                   COMBO
