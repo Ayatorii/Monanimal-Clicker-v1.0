@@ -4,6 +4,19 @@
 
 @custom-variant dark (&:is(.dark *));
 
+.combo-screen-glow {
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+html.combo-active .combo-screen-glow {
+  opacity: 1;
+  animation: comboGlowPulse 1.4s ease-in-out infinite;
+}
+@keyframes comboGlowPulse {
+  0%, 100% { opacity: 0.55; }
+  50% { opacity: 1; }
+}
+
 @theme inline {
   --color-background: hsl(var(--background));
   --color-foreground: hsl(var(--foreground));

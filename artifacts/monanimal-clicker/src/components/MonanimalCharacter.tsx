@@ -51,6 +51,20 @@ export default function MonanimalCharacter() {
     };
   }, []);
 
+  // Drive screen-edge glow to match active combo color
+  useEffect(() => {
+    const root = document.documentElement;
+    if (currentComboLevel) {
+      root.style.setProperty("--combo-glow-color", currentComboLevel.color);
+      root.classList.add("combo-active");
+    } else {
+      root.classList.remove("combo-active");
+    }
+    return () => {
+      root.classList.remove("combo-active");
+    };
+  }, [currentComboLevel]);
+
   // Show popup when new achievement unlocks (mobile + desktop)
   useEffect(() => {
     if (latestUnlocked) {
