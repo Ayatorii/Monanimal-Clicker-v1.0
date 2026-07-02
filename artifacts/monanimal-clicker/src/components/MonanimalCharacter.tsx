@@ -267,7 +267,7 @@ export default function MonanimalCharacter() {
             </div>
 
             {/* Mobile: achievement popup */}
-            <div className="md:hidden absolute left-3 right-3 z-30 pointer-events-none" style={{ top: "62px" }}>
+            <div className="md:hidden absolute left-3 right-3 z-30 pointer-events-none flex justify-center" style={{ top: "72px" }}>
               <AnimatePresence>
                 {popupAch && (
                   <motion.div
@@ -277,11 +277,11 @@ export default function MonanimalCharacter() {
                     exit={{ opacity: 0, y: -8 }}
                     transition={{ duration: 0.3, ease: "easeOut" }}
                   >
-                    <div className="flex items-center gap-2 bg-black/80 backdrop-blur-md border border-red-500/60 rounded-xl px-3 py-2 shadow-lg">
-                      <span className="text-2xl leading-none">{popupAch.icon}</span>
+                    <div className="flex items-center gap-1.5 bg-black/80 backdrop-blur-md border border-red-500/60 rounded-lg px-2.5 py-1.5 shadow-lg">
+                      <span className="text-lg leading-none">{popupAch.icon}</span>
                       <div className="flex flex-col min-w-0">
-                        <span className="text-[9px] font-black uppercase tracking-[0.2em] text-red-400 leading-none">Achievement Unlocked</span>
-                        <span className="text-xs font-bold text-white truncate leading-snug mt-0.5">{popupAch.name}</span>
+                        <span className="text-[7px] font-black uppercase tracking-[0.2em] text-red-400 leading-none">Achievement Unlocked</span>
+                        <span className="text-[11px] font-bold text-white truncate leading-snug mt-0.5">{popupAch.name}</span>
                       </div>
                     </div>
                   </motion.div>
@@ -290,7 +290,7 @@ export default function MonanimalCharacter() {
             </div>
 
             {/* Desktop: achievement popup — top-right of character area, below strip */}
-            <div className="hidden md:block absolute right-4 z-30 pointer-events-none" style={{ top: "68px" }}>
+            <div className="hidden md:block absolute right-4 z-30 pointer-events-none" style={{ top: "78px" }}>
               <AnimatePresence mode="wait">
                 {popupAch && (
                   <motion.div
@@ -300,11 +300,11 @@ export default function MonanimalCharacter() {
                     animate={{ opacity: 1, y: 0, transition: { duration: 0.3, ease: "easeOut" } }}
                     exit={{ opacity: 0, y: -8, transition: { duration: 0.3, ease: "easeIn" } }}
                   >
-                    <div className="flex items-center gap-4 bg-black/85 backdrop-blur-md border border-red-500/70 rounded-2xl px-5 py-4 shadow-2xl min-w-[260px] max-w-[340px]">
-                      <span className="text-4xl leading-none flex-shrink-0">{popupAch.icon}</span>
+                    <div className="flex items-center gap-2.5 bg-black/85 backdrop-blur-md border border-red-500/70 rounded-xl px-3.5 py-2.5 shadow-2xl min-w-[200px] max-w-[260px]">
+                      <span className="text-2xl leading-none flex-shrink-0">{popupAch.icon}</span>
                       <div className="flex flex-col min-w-0">
-                        <span className="text-[10px] font-black uppercase tracking-[0.22em] text-red-400 leading-none">Achievement Unlocked</span>
-                        <span className="text-base font-bold text-white truncate leading-snug mt-1.5">{popupAch.name}</span>
+                        <span className="text-[8px] font-black uppercase tracking-[0.22em] text-red-400 leading-none">Achievement Unlocked</span>
+                        <span className="text-sm font-bold text-white truncate leading-snug mt-1">{popupAch.name}</span>
                       </div>
                     </div>
                   </motion.div>
