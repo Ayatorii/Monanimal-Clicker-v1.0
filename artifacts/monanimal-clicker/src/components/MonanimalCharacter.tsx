@@ -510,30 +510,30 @@ export default function MonanimalCharacter() {
             <motion.div
               key={currentComboLevel.label}
               className="absolute"
-              style={{ top: isMobile ? "calc(22% - 5px)" : "calc(18% - 5px)" }}
+              style={{ top: isMobile ? "calc(22% - 25px)" : "calc(18% - 25px)" }}
               initial={{ opacity: 0, scale: 0.77, y: -8 }}
               animate={{ opacity: 1, scale: 1.1, y: 0 }}
               exit={{ opacity: 0, scale: 0.77, y: -8 }}
               transition={{ duration: 0.25, ease: "backOut" }}
             >
-              <div
-                className="flex items-center gap-2 rounded-full px-4 py-1.5 backdrop-blur-md border"
-                style={{
-                  background: `${currentComboLevel.color}18`,
-                  borderColor: `${currentComboLevel.color}60`,
-                  boxShadow: `0 0 20px 4px ${currentComboLevel.color}30`,
-                }}
-              >
+              <div className="flex items-center gap-2">
                 <span
-                  className="font-black text-[20px] md:text-[22px] tracking-tight leading-none"
+                  className="font-black text-[23px] md:text-[25px] tracking-tight leading-none"
                   style={{
                     color: currentComboLevel.color,
-                    textShadow: `0 0 12px ${currentComboLevel.color}`,
+                    textShadow: `0 0 14px ${currentComboLevel.color}, 0 0 6px ${currentComboLevel.color}, -1.5px -1.5px 0 #000, 1.5px -1.5px 0 #000, -1.5px 1.5px 0 #000, 1.5px 1.5px 0 #000`,
+                    WebkitTextStroke: "1.5px black",
                   }}
                 >
                   {currentComboLevel.label}
                 </span>
-                <span className="text-[11px] md:text-[13px] font-bold uppercase tracking-widest text-white/70 leading-none">
+                <span
+                  className="text-[13px] md:text-[15px] font-bold uppercase tracking-widest text-white leading-none"
+                  style={{
+                    textShadow:
+                      "-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000",
+                  }}
+                >
                   COMBO
                 </span>
               </div>
