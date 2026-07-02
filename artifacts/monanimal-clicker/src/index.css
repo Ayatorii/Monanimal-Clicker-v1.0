@@ -10,8 +10,8 @@
 }
 html.combo-active .combo-screen-glow {
   opacity: 0.9;
-  transition: opacity 0.3s ease;
-  animation: comboGlowPulse 1.4s ease-in-out infinite;
+  transition: opacity 0.5s ease;
+  animation: comboGlowPulse 1.8s ease-in-out infinite;
 }
 @keyframes comboGlowPulse {
   0%, 100% { opacity: 0.5; }

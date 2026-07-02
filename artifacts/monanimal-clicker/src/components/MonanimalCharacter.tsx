@@ -28,6 +28,8 @@ export default function MonanimalCharacter() {
   const comboStartRef = useRef<number | null>(null);
   const lastClickRef = useRef<number>(0);
   const comboResetTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const touchHandledRef = useRef(false);
+  const touchHandledTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const COMBO_RESET_MS = 2000;
 
@@ -101,9 +103,21 @@ export default function MonanimalCharacter() {
     let clientX: number, clientY: number;
     if ("touches" in e) {
       e.preventDefault(); // prevent synthetic click firing after touchstart (would double-count)
+      // Guard against browsers where React's passive touch listener makes preventDefault a no-op,
+      // which would otherwise let the synthetic "click" that follows also register as a second tap.
+      touchHandledRef.current = true;
+      if (touchHandledTimerRef.current) clearTimeout(touchHandledTimerRef.current);
+      touchHandledTimerRef.current = setTimeout(() => {
+        touchHandledRef.current = false;
+      }, 500);
       clientX = e.touches[0].clientX;
       clientY = e.touches[0].clientY;
     } else {
+      if (touchHandledRef.current) {
+        // This click is the synthetic one dispatched after a touch we already counted — ignore it.
+        touchHandledRef.current = false;
+        return;
+      }
       clientX = (e as React.MouseEvent).clientX;
       clientY = (e as React.MouseEvent).clientY;
     }
@@ -544,7 +558,7 @@ export default function MonanimalCharacter() {
             >
               <div className="flex items-center gap-2">
                 <span
-                  className="text-[28px] md:text-[30px] tracking-tight leading-none"
+                  className="text-[32px] md:text-[34px] tracking-tight leading-none"
                   style={{
                     fontFamily: "'Baloo 2', sans-serif",
                     fontWeight: 800,
@@ -557,7 +571,7 @@ export default function MonanimalCharacter() {
                   {currentComboLevel.label}
                 </span>
                 <span
-                  className="text-[18px] md:text-[20px] uppercase tracking-widest leading-none"
+                  className="text-[21px] md:text-[23px] uppercase tracking-widest leading-none"
                   style={{
                     fontFamily: "'Baloo 2', sans-serif",
                     fontWeight: 800,
