@@ -371,9 +371,9 @@ export default function MonanimalCharacter() {
         <motion.div
           className="absolute z-10 pointer-events-none flex items-center justify-center rounded-full w-[53px] h-[53px] md:w-[118px] md:h-[118px]"
           style={{
-            top: "20%", left: isMobile ? "12px" : "20%",
-            background: "radial-gradient(circle at 35% 35%, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0.06) 60%, rgba(255,255,255,0.02) 100%)",
-            border: "1px solid rgba(255,255,255,0.25)",
+            top: "28%", left: isMobile ? "12%" : "20%",
+            background: "radial-gradient(circle at 35% 35%, rgba(255,255,255,0.42) 0%, rgba(255,255,255,0.26) 60%, rgba(255,255,255,0.18) 100%)",
+            border: "1px solid rgba(255,255,255,0.45)",
             boxShadow: `0 4px 24px 0 rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.3), 0 0 16px 2px ${activeStage.glowColor}30`,
             backdropFilter: "blur(2px)",
           }}
@@ -387,9 +387,9 @@ export default function MonanimalCharacter() {
         <motion.div
           className="absolute z-10 pointer-events-none flex items-center justify-center rounded-full w-[53px] h-[53px] md:w-[118px] md:h-[118px]"
           style={{
-            top: "46%", left: isMobile ? "17px" : "8%",
-            background: "radial-gradient(circle at 35% 35%, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0.06) 60%, rgba(255,255,255,0.02) 100%)",
-            border: "1px solid rgba(255,255,255,0.25)",
+            top: "52%", left: isMobile ? "12%" : "8%",
+            background: "radial-gradient(circle at 35% 35%, rgba(255,255,255,0.42) 0%, rgba(255,255,255,0.26) 60%, rgba(255,255,255,0.18) 100%)",
+            border: "1px solid rgba(255,255,255,0.45)",
             boxShadow: `0 4px 24px 0 rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.3), 0 0 16px 2px ${activeStage.glowColor}30`,
             backdropFilter: "blur(2px)",
           }}
@@ -403,9 +403,9 @@ export default function MonanimalCharacter() {
         <motion.div
           className="absolute z-10 pointer-events-none flex items-center justify-center rounded-full w-[53px] h-[53px] md:w-[118px] md:h-[118px]"
           style={{
-            top: "68%", left: isMobile ? "17px" : "16%",
-            background: "radial-gradient(circle at 35% 35%, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0.06) 60%, rgba(255,255,255,0.02) 100%)",
-            border: "1px solid rgba(255,255,255,0.25)",
+            top: "73%", left: isMobile ? "12%" : "16%",
+            background: "radial-gradient(circle at 35% 35%, rgba(255,255,255,0.42) 0%, rgba(255,255,255,0.26) 60%, rgba(255,255,255,0.18) 100%)",
+            border: "1px solid rgba(255,255,255,0.45)",
             boxShadow: `0 4px 24px 0 rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.3), 0 0 16px 2px ${activeStage.glowColor}30`,
             backdropFilter: "blur(2px)",
           }}
@@ -421,9 +421,9 @@ export default function MonanimalCharacter() {
         <motion.div
           className="absolute z-10 pointer-events-none flex items-center justify-center rounded-full w-[53px] h-[53px] md:w-[118px] md:h-[118px]"
           style={{
-            top: "20%", right: isMobile ? "12px" : "20%",
-            background: "radial-gradient(circle at 35% 35%, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0.06) 60%, rgba(255,255,255,0.02) 100%)",
-            border: "1px solid rgba(255,255,255,0.25)",
+            top: "28%", right: isMobile ? "12%" : "20%",
+            background: "radial-gradient(circle at 35% 35%, rgba(255,255,255,0.42) 0%, rgba(255,255,255,0.26) 60%, rgba(255,255,255,0.18) 100%)",
+            border: "1px solid rgba(255,255,255,0.45)",
             boxShadow: `0 4px 24px 0 rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.3), 0 0 16px 2px ${activeStage.glowColor}30`,
             backdropFilter: "blur(2px)",
           }}
@@ -437,9 +437,9 @@ export default function MonanimalCharacter() {
         <motion.div
           className="absolute z-10 pointer-events-none flex items-center justify-center rounded-full w-[53px] h-[53px] md:w-[118px] md:h-[118px]"
           style={{
-            top: "46%", right: isMobile ? "17px" : "10%",
-            background: "radial-gradient(circle at 35% 35%, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0.06) 60%, rgba(255,255,255,0.02) 100%)",
-            border: "1px solid rgba(255,255,255,0.25)",
+            top: "52%", right: isMobile ? "12%" : "10%",
+            background: "radial-gradient(circle at 35% 35%, rgba(255,255,255,0.42) 0%, rgba(255,255,255,0.26) 60%, rgba(255,255,255,0.18) 100%)",
+            border: "1px solid rgba(255,255,255,0.45)",
             boxShadow: `0 4px 24px 0 rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.3), 0 0 16px 2px ${activeStage.glowColor}30`,
             backdropFilter: "blur(2px)",
           }}
@@ -453,9 +453,9 @@ export default function MonanimalCharacter() {
         <motion.div
           className="absolute z-10 pointer-events-none flex items-center justify-center rounded-full w-[53px] h-[53px] md:w-[118px] md:h-[118px]"
           style={{
-            top: "68%", right: isMobile ? "17px" : "18%",
-            background: "radial-gradient(circle at 35% 35%, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0.06) 60%, rgba(255,255,255,0.02) 100%)",
-            border: "1px solid rgba(255,255,255,0.25)",
+            top: "73%", right: isMobile ? "12%" : "18%",
+            background: "radial-gradient(circle at 35% 35%, rgba(255,255,255,0.42) 0%, rgba(255,255,255,0.26) 60%, rgba(255,255,255,0.18) 100%)",
+            border: "1px solid rgba(255,255,255,0.45)",
             boxShadow: `0 4px 24px 0 rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.3), 0 0 16px 2px ${activeStage.glowColor}30`,
             backdropFilter: "blur(2px)",
           }}
