@@ -6,7 +6,6 @@ import TopBar from "@/components/TopBar";
 import MonanimalCharacter from "@/components/MonanimalCharacter";
 import UpgradeShop from "@/components/UpgradeShop";
 import AchievementsModal from "@/components/AchievementsModal";
-import NetworkOverview from "@/components/NetworkOverview";
 import OnboardingModal from "@/components/OnboardingModal";
 
 function GameInner() {
@@ -28,8 +27,6 @@ function GameInner() {
       </div>
 
       <div className="flex flex-1 overflow-hidden flex-col md:flex-row relative z-10">
-        <NetworkOverview />
-
         <div className="flex-1 relative flex flex-col overflow-hidden">
           <MonanimalCharacter />
         </div>

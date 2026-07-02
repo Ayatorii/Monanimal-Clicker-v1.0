@@ -76,6 +76,51 @@ export default function TopBar({ onShowAchievements }: TopBarProps) {
                 <span className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-red-500 border border-background" />
               )}
             </div>
+            <AnimatePresence mode="wait">
+              {confirmReset ? (
+                <motion.div
+                  key="confirm-desktop"
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  className="flex items-center gap-1"
+                >
+                  <Button
+                    size="sm"
+                    variant="destructive"
+                    onClick={handleReset}
+                    className="h-8 text-xs px-3"
+                  >
+                    Yes, Reset
+                  </Button>
+                  <Button
+                    size="sm"
+                    variant="ghost"
+                    onClick={() => setConfirmReset(false)}
+                    className="h-8 text-xs px-3"
+                  >
+                    Cancel
+                  </Button>
+                </motion.div>
+              ) : (
+                <motion.div
+                  key="reset-desktop"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                >
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={() => setConfirmReset(true)}
+                    className="h-8 w-8 md:h-10 md:w-10 text-muted-foreground hover:text-destructive hover:bg-destructive/10"
+                    title="Reset Progress"
+                  >
+                    <RotateCcw className="h-4 w-4 md:h-5 md:w-5" />
+                  </Button>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
 
           {/* Right: mobile gear button */}

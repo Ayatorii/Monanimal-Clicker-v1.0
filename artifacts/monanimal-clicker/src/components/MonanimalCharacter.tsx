@@ -253,6 +253,16 @@ export default function MonanimalCharacter() {
                     {Math.floor(state.energy ?? 1000)}/{state.maxEnergy ?? 1000}
                   </span>
                 </div>
+                {/* Stats row — mobile */}
+                <div className="flex flex-row items-center justify-center gap-4 pt-0.5">
+                  <span className="text-[10px] font-mono text-white/70">
+                    pts/click — <span className="text-white font-bold">{formatNumber(state.coinsPerClick)}</span>
+                  </span>
+                  <span className="text-white/30 text-[10px]">·</span>
+                  <span className="text-[10px] font-mono text-white/70">
+                    pts/sec — <span className="text-white font-bold">{formatNumber(Math.floor(state.coinsPerSecond))}</span>
+                  </span>
+                </div>
               </div>
             </div>
 
@@ -336,6 +346,16 @@ export default function MonanimalCharacter() {
                   </div>
                   <span className="text-[9px] font-mono whitespace-nowrap flex-shrink-0" style={{ color: "#FFAE45" }}>
                     {Math.floor(state.energy ?? 1000)}/{state.maxEnergy ?? 1000}
+                  </span>
+                </div>
+                {/* Stats row — desktop */}
+                <div className="flex flex-row items-center justify-center gap-6 pt-0.5">
+                  <span className="text-[11px] font-mono text-white/70">
+                    pts/click — <span className="text-white font-bold">{formatNumber(state.coinsPerClick)}</span>
+                  </span>
+                  <span className="text-white/30 text-[11px]">·</span>
+                  <span className="text-[11px] font-mono text-white/70">
+                    pts/sec — <span className="text-white font-bold">{formatNumber(Math.floor(state.coinsPerSecond))}</span>
                   </span>
                 </div>
               </div>
