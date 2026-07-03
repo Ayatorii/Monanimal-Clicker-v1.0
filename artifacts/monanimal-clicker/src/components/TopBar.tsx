@@ -4,6 +4,7 @@ import { useGameState } from "@/hooks/useGameState";
 import { formatNumber } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Trophy, Settings, X, RotateCcw } from "lucide-react";
+import WalletButton from "@/components/WalletButton";
 
 interface TopBarProps {
   onShowAchievements: () => void;
@@ -70,7 +71,7 @@ export default function TopBar({ onShowAchievements }: TopBarProps) {
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.95 }}
-                  className="flex items-center gap-1"
+                  className="flex items-center gap-1 mr-[15px]"
                 >
                   <Button
                     size="sm"
@@ -95,12 +96,13 @@ export default function TopBar({ onShowAchievements }: TopBarProps) {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
+                  className="mr-[15px]"
                 >
                   <Button
                     variant="ghost"
                     size="icon"
                     onClick={() => setConfirmReset(true)}
-                    className="h-8 w-8 md:h-10 md:w-10 text-muted-foreground hover:text-destructive hover:bg-destructive/10"
+                    className="h-8 w-8 md:h-10 md:w-10 bg-[#E60000] hover:bg-[#c50000] text-white hover:text-white"
                     title="Reset Progress"
                   >
                     <RotateCcw className="h-4 w-4 md:h-5 md:w-5" />
@@ -129,13 +131,14 @@ export default function TopBar({ onShowAchievements }: TopBarProps) {
               <Button
                 variant="ghost"
                 size="icon"
-                className="h-8 w-8 text-muted-foreground hover:text-foreground"
+                className="h-[42px] w-[42px] hover:bg-transparent"
+                style={{ color: "hsl(240 5% 78%)" }}
                 onClick={() => setShowSettings(true)}
               >
-                <Settings className="h-4 w-4" />
+                <Settings className="h-[21px] w-[21px]" />
               </Button>
               {hasUnseen && (
-                <span className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-red-500 border border-background pointer-events-none" />
+                <span className="absolute top-0.5 right-0.5 w-2.5 h-2.5 rounded-full bg-red-500 border border-background pointer-events-none" />
               )}
             </div>
           </div>
@@ -219,7 +222,7 @@ export default function TopBar({ onShowAchievements }: TopBarProps) {
                 {/* Achievements */}
                 <button
                   onClick={handleOpenAchievements}
-                  className="flex items-center justify-between w-full py-3"
+                  className="flex items-center justify-between w-full py-3 border-b border-border/50"
                 >
                   <div className="flex items-center gap-3">
                     <Trophy className="h-5 w-5 text-primary" />
@@ -230,6 +233,11 @@ export default function TopBar({ onShowAchievements }: TopBarProps) {
                   </div>
                   <span className="text-muted-foreground text-xs">›</span>
                 </button>
+
+                {/* Connect Wallet */}
+                <div className="pt-3">
+                  <WalletButton fullWidth />
+                </div>
               </div>
 
               <p className="text-center text-[12px] text-white/60 font-mono pt-2">
