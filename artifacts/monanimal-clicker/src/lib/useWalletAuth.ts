@@ -1,7 +1,12 @@
 import { useAccount, useSignMessage } from "wagmi";
 import { useState, useCallback, useEffect } from "react";
 
-const API_URL = import.meta.env.VITE_API_URL ?? "";
+// api-server is reverse-proxied at the "/api" path on this same origin (see
+// artifacts/api-server/.replit-artifact/artifact.toml). Always call it via a
+// relative path — never a separate host/port/domain — so this works
+// unchanged in the dev preview, the published deployment, and any custom
+// domain, without needing a VITE_API_URL override.
+const API_URL = "";
 
 export function useWalletAuth() {
   const { address, isConnected } = useAccount();
