@@ -63,19 +63,6 @@ export default function TopBar({ onShowAchievements }: TopBarProps) {
 
           {/* Right: desktop controls */}
           <div className="hidden md:flex items-center gap-1 md:gap-2 px-4 flex-shrink-0 justify-end md:w-80 lg:w-96">
-            <div className="relative">
-              <Button
-                variant="outline"
-                size="icon"
-                onClick={onShowAchievements}
-                className="rounded-full shadow-sm hover:border-primary hover:text-primary transition-colors h-8 w-8 md:h-10 md:w-10"
-              >
-                <Trophy className="h-4 w-4 md:h-5 md:w-5" />
-              </Button>
-              {hasUnseen && (
-                <span className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-red-500 border border-background" />
-              )}
-            </div>
             <AnimatePresence mode="wait">
               {confirmReset ? (
                 <motion.div
@@ -121,6 +108,19 @@ export default function TopBar({ onShowAchievements }: TopBarProps) {
                 </motion.div>
               )}
             </AnimatePresence>
+            <div className="relative">
+              <Button
+                variant="outline"
+                size="icon"
+                onClick={onShowAchievements}
+                className="rounded-full shadow-sm hover:border-primary hover:text-primary transition-colors h-8 w-8 md:h-10 md:w-10"
+              >
+                <Trophy className="h-4 w-4 md:h-5 md:w-5" />
+              </Button>
+              {hasUnseen && (
+                <span className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-red-500 border border-background" />
+              )}
+            </div>
           </div>
 
           {/* Right: mobile gear button */}
@@ -170,21 +170,6 @@ export default function TopBar({ onShowAchievements }: TopBarProps) {
 
               {/* Items */}
               <div className="flex flex-col px-5 py-3 pb-5 gap-1">
-                {/* Achievements */}
-                <button
-                  onClick={handleOpenAchievements}
-                  className="flex items-center justify-between w-full py-3 border-b border-border/50"
-                >
-                  <div className="flex items-center gap-3">
-                    <Trophy className="h-5 w-5 text-primary" />
-                    <span className="text-sm font-bold text-foreground">Achievements</span>
-                    {hasUnseen && (
-                      <span className="w-2 h-2 rounded-full bg-red-500 inline-block" />
-                    )}
-                  </div>
-                  <span className="text-muted-foreground text-xs">›</span>
-                </button>
-
                 {/* Reset Progress */}
                 <AnimatePresence mode="wait">
                   {confirmReset ? (
@@ -193,7 +178,7 @@ export default function TopBar({ onShowAchievements }: TopBarProps) {
                       initial={{ opacity: 0, height: 0 }}
                       animate={{ opacity: 1, height: "auto" }}
                       exit={{ opacity: 0, height: 0 }}
-                      className="overflow-hidden"
+                      className="overflow-hidden border-b border-border/50"
                     >
                       <div className="py-3 flex flex-col gap-2">
                         <p className="text-xs text-muted-foreground">All progress will be permanently deleted.</p>
@@ -220,7 +205,7 @@ export default function TopBar({ onShowAchievements }: TopBarProps) {
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
                       onClick={() => setConfirmReset(true)}
-                      className="flex items-center justify-between w-full py-3"
+                      className="flex items-center justify-between w-full py-3 border-b border-border/50"
                     >
                       <div className="flex items-center gap-3">
                         <RotateCcw className="h-5 w-5" style={{ color: "#E60000" }} />
@@ -230,6 +215,21 @@ export default function TopBar({ onShowAchievements }: TopBarProps) {
                     </motion.button>
                   )}
                 </AnimatePresence>
+
+                {/* Achievements */}
+                <button
+                  onClick={handleOpenAchievements}
+                  className="flex items-center justify-between w-full py-3"
+                >
+                  <div className="flex items-center gap-3">
+                    <Trophy className="h-5 w-5 text-primary" />
+                    <span className="text-sm font-bold text-foreground">Achievements</span>
+                    {hasUnseen && (
+                      <span className="w-2 h-2 rounded-full bg-red-500 inline-block" />
+                    )}
+                  </div>
+                  <span className="text-muted-foreground text-xs">›</span>
+                </button>
               </div>
 
               <p className="text-center text-[12px] text-white/60 font-mono pt-2">

@@ -6,8 +6,18 @@ import NotFound from "@/pages/not-found";
 import Game from "@/pages/Game";
 import "@rainbow-me/rainbowkit/styles.css";
 import { WagmiProvider } from "wagmi";
-import { RainbowKitProvider } from "@rainbow-me/rainbowkit";
+import { RainbowKitProvider, darkTheme } from "@rainbow-me/rainbowkit";
 import { wagmiConfig } from "@/lib/wagmi";
+
+const rainbowKitTheme = darkTheme({
+  accentColor: "hsl(252, 100%, 71%)",
+  accentColorForeground: "white",
+  borderRadius: "medium",
+  overlayBlur: "small",
+});
+rainbowKitTheme.colors.connectButtonBackground = "hsl(240, 10%, 12%)";
+rainbowKitTheme.colors.connectButtonInnerBackground = "hsl(240, 10%, 12%)";
+rainbowKitTheme.colors.connectButtonText = "white";
 
 const queryClient = new QueryClient();
 
@@ -24,7 +34,7 @@ function App() {
   return (
     <WagmiProvider config={wagmiConfig}>
       <QueryClientProvider client={queryClient}>
-        <RainbowKitProvider>
+        <RainbowKitProvider theme={rainbowKitTheme} locale="en">
           <TooltipProvider>
             <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
               <Router />
