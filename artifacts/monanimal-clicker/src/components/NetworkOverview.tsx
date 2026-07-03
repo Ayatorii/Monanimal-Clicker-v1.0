@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useGameState } from "@/hooks/useGameState";
 import { getCharacterStage, formatNumber } from "@/lib/utils";
-import { useIsMobile } from "@/hooks/use-mobile";
 
 const HISTORY_SIZE = 30;
 
@@ -67,7 +66,6 @@ function MiniChart({ history, color }: { history: number[]; color: string }) {
 export default function NetworkOverview() {
   const { state } = useGameState();
   const stage = getCharacterStage(state.characterLevel);
-  const isMobile = useIsMobile();
 
   const clicksHistoryRef = useRef<number[]>([]);
   const ppcHistoryRef = useRef<number[]>([]);
@@ -88,8 +86,6 @@ export default function NetworkOverview() {
     }, 500);
     return () => clearInterval(interval);
   }, [state.totalClicks, state.coinsPerClick, state.coinsPerSecond]);
-
-  if (isMobile) return null;
 
   const rankLabel = stage.title.toUpperCase();
 
@@ -122,7 +118,7 @@ export default function NetworkOverview() {
       initial={{ x: -20, opacity: 0 }}
       animate={{ x: 0, opacity: 1 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
-      className="flex flex-col w-60 flex-shrink-0 bg-black/40 backdrop-blur-md border-r border-white/5 overflow-hidden"
+      className="hidden lg:flex flex-col w-52 xl:w-60 flex-shrink-0 bg-black/40 backdrop-blur-md border-r border-white/5 overflow-hidden"
     >
       {/* Header */}
       <div className="px-4 py-3 border-b border-white/5">

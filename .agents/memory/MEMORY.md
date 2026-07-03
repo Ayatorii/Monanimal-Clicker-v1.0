@@ -1,0 +1,1 @@
+- [Git revert restrictions](git-revert-restrictions.md) — main agent can't run git revert/reset/checkout; restore files via `git show <commit>:<path>` + write/cp instead.
