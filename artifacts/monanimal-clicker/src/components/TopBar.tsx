@@ -63,7 +63,7 @@ export default function TopBar({ onShowAchievements }: TopBarProps) {
           </div>
 
           {/* Right: desktop controls */}
-          <div className="hidden md:flex items-center gap-1 md:gap-2 px-4 flex-shrink-0 justify-end md:w-80 lg:w-96">
+          <div className="hidden md:flex items-center gap-1 md:gap-2 px-4 flex-shrink-0 justify-end md:w-auto lg:w-auto">
             <AnimatePresence mode="wait">
               {confirmReset ? (
                 <motion.div
@@ -102,7 +102,7 @@ export default function TopBar({ onShowAchievements }: TopBarProps) {
                     variant="ghost"
                     size="icon"
                     onClick={() => setConfirmReset(true)}
-                    className="h-8 w-8 md:h-10 md:w-10 bg-[#E60000] hover:bg-[#c50000] text-white hover:text-white"
+                    className="h-8 w-8 md:h-10 md:w-10 rounded-full bg-[#E60000] hover:bg-[#c50000] text-white hover:text-white"
                     title="Reset Progress"
                   >
                     <RotateCcw className="h-4 w-4 md:h-5 md:w-5" />
@@ -122,6 +122,9 @@ export default function TopBar({ onShowAchievements }: TopBarProps) {
               {hasUnseen && (
                 <span className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-red-500 border border-background" />
               )}
+            </div>
+            <div className="ml-1 md:ml-2">
+              <WalletButton />
             </div>
           </div>
 

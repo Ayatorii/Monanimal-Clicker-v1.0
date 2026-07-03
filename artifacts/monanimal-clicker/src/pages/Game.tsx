@@ -6,7 +6,6 @@ import TopBar from "@/components/TopBar";
 import MonanimalCharacter from "@/components/MonanimalCharacter";
 import UpgradeShop from "@/components/UpgradeShop";
 import AchievementsModal from "@/components/AchievementsModal";
-import WalletButton from "@/components/WalletButton";
 import { useWalletAuth } from "@/lib/useWalletAuth";
 import { useCloudSync } from "@/hooks/useCloudSync";
 
@@ -29,11 +28,8 @@ function GameInner() {
         onOpenChange={setShowAchievements}
       />
 
-      <div className="relative z-20 flex items-center justify-between">
+      <div className="relative z-20">
         <TopBar onShowAchievements={() => setShowAchievements(true)} />
-        <div className="hidden md:flex px-4">
-          <WalletButton />
-        </div>
       </div>
 
       <div className="flex flex-1 overflow-hidden flex-col md:flex-row relative z-10">
