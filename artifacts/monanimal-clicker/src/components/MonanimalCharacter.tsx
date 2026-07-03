@@ -183,12 +183,12 @@ export default function MonanimalCharacter() {
   const charYOffset = CHARACTER_Y_OFFSETS[activeStage.characterKey] ?? 0;
 
   const CHARACTER_SIZES: Record<string, { mobile: string; desktop: string }> = {
-    recruit:   { mobile: "w-[220px] h-[220px]", desktop: "md:w-[340px] md:h-[340px]" },
-    builder:   { mobile: "w-[230px] h-[230px]", desktop: "md:w-[350px] md:h-[350px]" },
-    engineer:  { mobile: "w-[230px] h-[230px]", desktop: "md:w-[355px] md:h-[355px]" },
-    validator: { mobile: "w-[240px] h-[240px]", desktop: "md:w-[360px] md:h-[360px]" },
-    explorer:  { mobile: "w-[245px] h-[245px]", desktop: "md:w-[365px] md:h-[365px]" },
-    founder:   { mobile: "w-[250px] h-[250px]", desktop: "md:w-[375px] md:h-[375px]" },
+    recruit:   { mobile: "w-[220px] h-[220px]", desktop: "md:w-[230px] md:h-[230px]" },
+    builder:   { mobile: "w-[230px] h-[230px]", desktop: "md:w-[236px] md:h-[236px]" },
+    engineer:  { mobile: "w-[230px] h-[230px]", desktop: "md:w-[240px] md:h-[240px]" },
+    validator: { mobile: "w-[240px] h-[240px]", desktop: "md:w-[244px] md:h-[244px]" },
+    explorer:  { mobile: "w-[245px] h-[245px]", desktop: "md:w-[248px] md:h-[248px]" },
+    founder:   { mobile: "w-[250px] h-[250px]", desktop: "md:w-[254px] md:h-[254px]" },
   };
   const charSize = CHARACTER_SIZES[activeStage.characterKey] ?? CHARACTER_SIZES.recruit;
   const charClassName = `${isMobile ? charSize.mobile : charSize.desktop.replace(/\bmd:/g, "")} object-contain`;
