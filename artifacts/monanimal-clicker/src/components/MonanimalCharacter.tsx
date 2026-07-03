@@ -191,7 +191,7 @@ export default function MonanimalCharacter() {
     founder:   { mobile: "w-[250px] h-[250px]", desktop: "md:w-[375px] md:h-[375px]" },
   };
   const charSize = CHARACTER_SIZES[activeStage.characterKey] ?? CHARACTER_SIZES.recruit;
-  const charClassName = `${charSize.mobile} ${charSize.desktop} object-contain`;
+  const charClassName = `${isMobile ? charSize.mobile : charSize.desktop.replace(/\bmd:/g, "")} object-contain`;
 
   return (
     <div ref={containerRef} className="relative w-full h-full overflow-hidden select-none">
@@ -217,22 +217,23 @@ export default function MonanimalCharacter() {
           transition={{ duration: 1.6, ease: "easeInOut" }}
           className="absolute inset-0 z-0"
         >
-          {/* Mobile image */}
-          <img
-            src={bgImgMobile}
-            alt={activeStage.title + " environment"}
-            className="md:hidden w-full h-full object-cover"
-            style={activeStage.bgTransformMobile ? { transform: activeStage.bgTransformMobile } : undefined}
-            draggable={false}
-          />
-          {/* Desktop image */}
-          <img
-            src={bgImgPC}
-            alt={activeStage.title + " environment"}
-            className="hidden md:block w-full h-full object-cover"
-            style={activeStage.bgTransformPC ? { transform: activeStage.bgTransformPC } : undefined}
-            draggable={false}
-          />
+          {isMobile ? (
+            <img
+              src={bgImgMobile}
+              alt={activeStage.title + " environment"}
+              className="w-full h-full object-cover"
+              style={activeStage.bgTransformMobile ? { transform: activeStage.bgTransformMobile } : undefined}
+              draggable={false}
+            />
+          ) : (
+            <img
+              src={bgImgPC}
+              alt={activeStage.title + " environment"}
+              className="w-full h-full object-cover"
+              style={activeStage.bgTransformPC ? { transform: activeStage.bgTransformPC } : undefined}
+              draggable={false}
+            />
+          )}
           <div className="absolute inset-0 bg-black/30" />
         </motion.div>
       </AnimatePresence>
@@ -257,8 +258,8 @@ export default function MonanimalCharacter() {
         const xp = getLevelXpInfo(state.totalCoinsEarned);
         return (
           <>
-            {/* Mobile: full-width rectangular strip at top */}
-            <div className="md:hidden absolute top-0 left-0 right-0 z-20 pointer-events-none">
+            {isMobile && (
+            <div className="absolute top-0 left-0 right-0 z-20 pointer-events-none">
               <div className="bg-black/70 backdrop-blur-sm border-b border-white/10 px-4 pt-2 pb-1.5 flex flex-col gap-1.5 w-full">
                 {/* XP row */}
                 <div className="flex flex-row items-center gap-3">
@@ -305,9 +306,10 @@ export default function MonanimalCharacter() {
                 </div>
               </div>
             </div>
+            )}
 
-            {/* Mobile: achievement popup */}
-            <div className="md:hidden absolute left-3 right-3 z-30 pointer-events-none flex justify-end" style={{ top: "82px" }}>
+            {isMobile && (
+            <div className="absolute left-3 right-3 z-30 pointer-events-none flex justify-end" style={{ top: "82px" }}>
               <AnimatePresence>
                 {popupAch && (
                   <motion.div
@@ -328,9 +330,10 @@ export default function MonanimalCharacter() {
                 )}
               </AnimatePresence>
             </div>
+            )}
 
-            {/* Desktop: achievement popup — top-right of character area, below strip */}
-            <div className="hidden md:block absolute right-4 z-30 pointer-events-none" style={{ top: "78px" }}>
+            {!isMobile && (
+            <div className="absolute right-4 z-30 pointer-events-none" style={{ top: "78px" }}>
               <AnimatePresence mode="wait">
                 {popupAch && (
                   <motion.div
@@ -351,9 +354,10 @@ export default function MonanimalCharacter() {
                 )}
               </AnimatePresence>
             </div>
+            )}
 
-            {/* Desktop: full-width strip (same style as mobile) */}
-            <div className="hidden md:block absolute top-0 left-0 right-0 z-20 pointer-events-none">
+            {!isMobile && (
+            <div className="absolute top-0 left-0 right-0 z-20 pointer-events-none">
               <div className="bg-black/70 backdrop-blur-sm border-b border-white/10 px-5 pt-2 pb-1.5 flex flex-col gap-1.5 w-full">
                 {/* XP row */}
                 <div className="flex flex-row items-center gap-3">
@@ -400,6 +404,7 @@ export default function MonanimalCharacter() {
                 </div>
               </div>
             </div>
+            )}
           </>
         );
       })()}
