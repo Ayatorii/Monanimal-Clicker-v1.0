@@ -31,7 +31,7 @@ export default function MonanimalCharacter() {
   const touchHandledRef = useRef(false);
   const touchHandledTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const COMBO_RESET_MS = 2000;
+  const COMBO_RESET_MS = 1500;
 
   const COMBO_LEVELS = [
     { threshold: 20, multiplier: 1.4, color: "#FFAE45", label: "x1.4" },
