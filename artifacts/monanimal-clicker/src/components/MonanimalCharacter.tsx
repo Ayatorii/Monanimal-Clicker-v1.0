@@ -196,15 +196,15 @@ export default function MonanimalCharacter() {
   return (
     <div ref={containerRef} className="relative w-full h-full overflow-hidden select-none">
       <div
-        className="combo-screen-glow absolute inset-y-0 left-0 w-[73px] md:w-[125px] z-40 pointer-events-none"
+        className={`combo-screen-glow absolute inset-y-0 left-0 z-40 pointer-events-none ${isMobile ? "w-[73px]" : "w-[125px]"}`}
         style={{ background: "linear-gradient(to right, var(--combo-glow-color, transparent), transparent)" }}
       />
       <div
-        className="combo-screen-glow absolute inset-y-0 right-0 w-[73px] md:w-[125px] z-40 pointer-events-none"
+        className={`combo-screen-glow absolute inset-y-0 right-0 z-40 pointer-events-none ${isMobile ? "w-[73px]" : "w-[125px]"}`}
         style={{ background: "linear-gradient(to left, var(--combo-glow-color, transparent), transparent)" }}
       />
       <div
-        className="combo-screen-glow absolute inset-x-0 bottom-0 h-[73px] md:h-[125px] z-40 pointer-events-none"
+        className={`combo-screen-glow absolute inset-x-0 bottom-0 z-40 pointer-events-none ${isMobile ? "h-[73px]" : "h-[125px]"}`}
         style={{ background: "linear-gradient(to top, var(--combo-glow-color, transparent), transparent)" }}
       />
       {/* ENVIRONMENT BACKGROUND — true crossfade */}
@@ -414,7 +414,7 @@ export default function MonanimalCharacter() {
           Positions keep sphere right-edge safely left of character: row1=2%, row2=3%, row3=3% */}
       {ownedItems.includes("smartphone") && (
         <motion.div
-          className="absolute z-10 pointer-events-none flex items-center justify-center rounded-full w-[64px] h-[64px] md:w-[118px] md:h-[118px]"
+          className={`absolute z-10 pointer-events-none flex items-center justify-center rounded-full ${isMobile ? "w-[64px] h-[64px]" : "w-[118px] h-[118px]"}`}
           style={{
             top: "28%", left: isMobile ? "12%" : "20%",
             background: "radial-gradient(circle at 35% 35%, rgba(255,255,255,0.42) 0%, rgba(255,255,255,0.26) 60%, rgba(255,255,255,0.18) 100%)",
@@ -425,12 +425,12 @@ export default function MonanimalCharacter() {
           animate={{ y: [0, -6, 0] }}
           transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
         >
-          <img src={ITEMS.smartphone} alt="Smartphone" className="w-[52px] h-[52px] md:w-[100px] md:h-[100px] object-contain" style={{ filter: `drop-shadow(0 0 8px ${activeStage.glowColor})` }} />
+          <img src={ITEMS.smartphone} alt="Smartphone" className={`object-contain ${isMobile ? "w-[52px] h-[52px]" : "w-[100px] h-[100px]"}`} style={{ filter: `drop-shadow(0 0 8px ${activeStage.glowColor})` }} />
         </motion.div>
       )}
       {ownedItems.includes("laptop") && (
         <motion.div
-          className="absolute z-10 pointer-events-none flex items-center justify-center rounded-full w-[64px] h-[64px] md:w-[118px] md:h-[118px]"
+          className={`absolute z-10 pointer-events-none flex items-center justify-center rounded-full ${isMobile ? "w-[64px] h-[64px]" : "w-[118px] h-[118px]"}`}
           style={{
             top: "52%", left: isMobile ? "calc(12% - 20px)" : "calc(8% - 20px)",
             background: "radial-gradient(circle at 35% 35%, rgba(255,255,255,0.42) 0%, rgba(255,255,255,0.26) 60%, rgba(255,255,255,0.18) 100%)",
@@ -441,12 +441,12 @@ export default function MonanimalCharacter() {
           animate={{ y: [0, -6, 0] }}
           transition={{ repeat: Infinity, duration: 3.5, ease: "easeInOut", delay: 0.4 }}
         >
-          <img src={ITEMS.laptop} alt="Laptop" className="w-[52px] h-[52px] md:w-[100px] md:h-[100px] object-contain" style={{ filter: `drop-shadow(0 0 8px ${activeStage.glowColor})`, transform: isMobile ? undefined : "translateX(-5px) translateY(3px)" }} />
+          <img src={ITEMS.laptop} alt="Laptop" className={`object-contain ${isMobile ? "w-[52px] h-[52px]" : "w-[100px] h-[100px]"}`} style={{ filter: `drop-shadow(0 0 8px ${activeStage.glowColor})`, transform: isMobile ? undefined : "translateX(-5px) translateY(3px)" }} />
         </motion.div>
       )}
       {ownedItems.includes("gpu") && (
         <motion.div
-          className="absolute z-10 pointer-events-none flex items-center justify-center rounded-full w-[64px] h-[64px] md:w-[118px] md:h-[118px]"
+          className={`absolute z-10 pointer-events-none flex items-center justify-center rounded-full ${isMobile ? "w-[64px] h-[64px]" : "w-[118px] h-[118px]"}`}
           style={{
             top: "73%", left: isMobile ? "12%" : "16%",
             background: "radial-gradient(circle at 35% 35%, rgba(255,255,255,0.42) 0%, rgba(255,255,255,0.26) 60%, rgba(255,255,255,0.18) 100%)",
@@ -457,14 +457,14 @@ export default function MonanimalCharacter() {
           animate={{ y: [0, -6, 0] }}
           transition={{ repeat: Infinity, duration: 4, ease: "easeInOut", delay: 0.8 }}
         >
-          <img src={ITEMS.gpu} alt="GPU" className="w-[52px] h-[52px] md:w-[100px] md:h-[100px] object-contain" style={{ filter: `drop-shadow(0 0 8px ${activeStage.glowColor})` }} />
+          <img src={ITEMS.gpu} alt="GPU" className={`object-contain ${isMobile ? "w-[52px] h-[52px]" : "w-[100px] h-[100px]"}`} style={{ filter: `drop-shadow(0 0 8px ${activeStage.glowColor})` }} />
         </motion.div>
       )}
 
       {/* RIGHT COLUMN: AI Agent, Validator Node, Data Center */}
       {ownedItems.includes("ai_agent") && (
         <motion.div
-          className="absolute z-10 pointer-events-none flex items-center justify-center rounded-full w-[64px] h-[64px] md:w-[118px] md:h-[118px]"
+          className={`absolute z-10 pointer-events-none flex items-center justify-center rounded-full ${isMobile ? "w-[64px] h-[64px]" : "w-[118px] h-[118px]"}`}
           style={{
             top: "28%", right: isMobile ? "12%" : "20%",
             background: "radial-gradient(circle at 35% 35%, rgba(255,255,255,0.42) 0%, rgba(255,255,255,0.26) 60%, rgba(255,255,255,0.18) 100%)",
@@ -475,12 +475,12 @@ export default function MonanimalCharacter() {
           animate={{ y: [0, -6, 0] }}
           transition={{ repeat: Infinity, duration: 3.2, ease: "easeInOut", delay: 0.2 }}
         >
-          <img src={ITEMS.ai_agent} alt="AI Agent" className="w-[52px] h-[52px] md:w-[100px] md:h-[100px] object-contain" style={{ filter: `drop-shadow(0 0 8px ${activeStage.glowColor})`, transform: isMobile ? "translateY(4px)" : "translateY(14px)" }} />
+          <img src={ITEMS.ai_agent} alt="AI Agent" className={`object-contain ${isMobile ? "w-[52px] h-[52px]" : "w-[100px] h-[100px]"}`} style={{ filter: `drop-shadow(0 0 8px ${activeStage.glowColor})`, transform: isMobile ? "translateY(4px)" : "translateY(14px)" }} />
         </motion.div>
       )}
       {ownedItems.includes("validator_node") && (
         <motion.div
-          className="absolute z-10 pointer-events-none flex items-center justify-center rounded-full w-[64px] h-[64px] md:w-[118px] md:h-[118px]"
+          className={`absolute z-10 pointer-events-none flex items-center justify-center rounded-full ${isMobile ? "w-[64px] h-[64px]" : "w-[118px] h-[118px]"}`}
           style={{
             top: "52%", right: isMobile ? "calc(12% - 20px)" : "calc(10% - 20px)",
             background: "radial-gradient(circle at 35% 35%, rgba(255,255,255,0.42) 0%, rgba(255,255,255,0.26) 60%, rgba(255,255,255,0.18) 100%)",
@@ -491,12 +491,12 @@ export default function MonanimalCharacter() {
           animate={{ y: [0, -6, 0] }}
           transition={{ repeat: Infinity, duration: 3.8, ease: "easeInOut", delay: 0.6 }}
         >
-          <img src={ITEMS.validator_node} alt="Validator Node" className="w-[52px] h-[52px] md:w-[115px] md:h-[115px] object-contain" style={{ filter: `drop-shadow(0 0 8px ${activeStage.glowColor})` }} />
+          <img src={ITEMS.validator_node} alt="Validator Node" className={`object-contain ${isMobile ? "w-[52px] h-[52px]" : "w-[115px] h-[115px]"}`} style={{ filter: `drop-shadow(0 0 8px ${activeStage.glowColor})` }} />
         </motion.div>
       )}
       {ownedItems.includes("data_center") && (
         <motion.div
-          className="absolute z-10 pointer-events-none flex items-center justify-center rounded-full w-[64px] h-[64px] md:w-[118px] md:h-[118px]"
+          className={`absolute z-10 pointer-events-none flex items-center justify-center rounded-full ${isMobile ? "w-[64px] h-[64px]" : "w-[118px] h-[118px]"}`}
           style={{
             top: "73%", right: isMobile ? "12%" : "18%",
             background: "radial-gradient(circle at 35% 35%, rgba(255,255,255,0.42) 0%, rgba(255,255,255,0.26) 60%, rgba(255,255,255,0.18) 100%)",
@@ -507,7 +507,7 @@ export default function MonanimalCharacter() {
           animate={{ y: [0, -6, 0] }}
           transition={{ repeat: Infinity, duration: 4.5, ease: "easeInOut", delay: 1 }}
         >
-          <img src={ITEMS.data_center} alt="Data Center" className="w-[52px] h-[52px] md:w-[100px] md:h-[100px] object-contain" style={{ filter: `drop-shadow(0 0 8px ${activeStage.glowColor})` }} />
+          <img src={ITEMS.data_center} alt="Data Center" className={`object-contain ${isMobile ? "w-[52px] h-[52px]" : "w-[100px] h-[100px]"}`} style={{ filter: `drop-shadow(0 0 8px ${activeStage.glowColor})` }} />
         </motion.div>
       )}
 
@@ -563,7 +563,7 @@ export default function MonanimalCharacter() {
             >
               <div className="flex items-center gap-2">
                 <span
-                  className="text-[32px] md:text-[34px] tracking-tight leading-none"
+                  className={`tracking-tight leading-none ${isMobile ? "text-[32px]" : "text-[34px]"}`}
                   style={{
                     fontFamily: "'Baloo 2', sans-serif",
                     fontWeight: 800,
@@ -576,7 +576,7 @@ export default function MonanimalCharacter() {
                   {currentComboLevel.label}
                 </span>
                 <span
-                  className="text-[21px] md:text-[23px] uppercase tracking-widest leading-none"
+                  className={`uppercase tracking-widest leading-none ${isMobile ? "text-[21px]" : "text-[23px]"}`}
                   style={{
                     fontFamily: "'Baloo 2', sans-serif",
                     fontWeight: 800,
@@ -638,7 +638,7 @@ export default function MonanimalCharacter() {
               <img
                 src={CHARACTERS[s.key as keyof typeof CHARACTERS]}
                 alt={s.label}
-                className="w-[27px] h-[27px] md:w-9 md:h-9 object-contain rounded-full"
+                className={`object-contain rounded-full ${isMobile ? "w-[27px] h-[27px]" : "w-9 h-9"}`}
                 style={{
                   filter: isActive
                     ? `drop-shadow(0 0 6px ${stageData.glowColor}) brightness(1.2)`
@@ -648,7 +648,7 @@ export default function MonanimalCharacter() {
                 }}
               />
               <div
-                className="text-[7px] font-bold tracking-widest uppercase hidden md:block"
+                className={`text-[7px] font-bold tracking-widest uppercase ${isMobile ? "hidden" : "block"}`}
                 style={{ color: isActive ? stageData.glowColor : isUnlocked ? "rgba(255,255,255,0.5)" : "rgba(255,255,255,0.2)" }}
               >
                 {s.label}

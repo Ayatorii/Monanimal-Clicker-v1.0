@@ -5,6 +5,7 @@ import { formatNumber } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Trophy, Settings, X, RotateCcw } from "lucide-react";
 import WalletButton from "@/components/WalletButton";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 interface TopBarProps {
   onShowAchievements: () => void;
@@ -14,6 +15,7 @@ export default function TopBar({ onShowAchievements }: TopBarProps) {
   const { state, dispatch, resetGame, unseenAchievements } = useGameState();
   const [showSettings, setShowSettings] = useState(false);
   const [confirmReset, setConfirmReset] = useState(false);
+  const isMobile = useIsMobile();
 
   const hasUnseen = unseenAchievements.length > 0;
 
@@ -37,12 +39,12 @@ export default function TopBar({ onShowAchievements }: TopBarProps) {
       <div className="w-full bg-card/80 backdrop-blur-md border-b border-border z-10 shadow-sm">
         <div className="flex items-center pt-3 pb-1">
           {/* Left: Logo */}
-          <div className="flex items-center gap-2 px-4 flex-shrink-0 lg:w-52 xl:w-60">
-            <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-primary flex items-center justify-center text-primary-foreground font-bold shadow-[0_0_15px_rgba(110,84,255,0.5)]">
+          <div className={`flex items-center gap-2 px-4 flex-shrink-0 ${isMobile ? "" : "w-60"}`}>
+            <div className={`rounded-full bg-primary flex items-center justify-center text-primary-foreground font-bold shadow-[0_0_15px_rgba(110,84,255,0.5)] ${isMobile ? "w-8 h-8" : "w-10 h-10"}`}>
               M
             </div>
-            <div className="hidden sm:flex flex-col leading-none">
-              <h1 className="font-black text-lg md:text-xl tracking-tighter uppercase bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+            <div className="flex flex-col leading-none">
+              <h1 className={`font-black tracking-tighter uppercase bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent ${isMobile ? "text-lg" : "text-xl"}`}>
                 Monanimal
               </h1>
               <span className="text-[10px] font-mono text-white/70 tracking-widest">ALPHA 1.0.0</span>
@@ -53,7 +55,7 @@ export default function TopBar({ onShowAchievements }: TopBarProps) {
           <div className="flex-1 flex flex-col items-center justify-center">
             <motion.div
               key={Math.floor(state.coins / 100)}
-              className="text-2xl md:text-3xl lg:text-5xl font-black font-mono tracking-tighter text-foreground drop-shadow-md"
+              className={`font-black font-mono tracking-tighter text-foreground drop-shadow-md ${isMobile ? "text-2xl" : "text-5xl"}`}
             >
               {formatNumber(Math.floor(state.coins))}
             </motion.div>
@@ -63,7 +65,8 @@ export default function TopBar({ onShowAchievements }: TopBarProps) {
           </div>
 
           {/* Right: desktop controls */}
-          <div className="hidden md:flex items-center gap-1 md:gap-2 px-4 flex-shrink-0 justify-end md:w-auto lg:w-auto">
+          {!isMobile && (
+          <div className="flex items-center gap-2 px-4 flex-shrink-0 justify-end w-auto">
             <AnimatePresence mode="wait">
               {confirmReset ? (
                 <motion.div
@@ -102,10 +105,10 @@ export default function TopBar({ onShowAchievements }: TopBarProps) {
                     variant="ghost"
                     size="icon"
                     onClick={() => setConfirmReset(true)}
-                    className="h-8 w-8 md:h-10 md:w-10 rounded-full bg-[#E60000] hover:bg-[#c50000] text-white hover:text-white"
+                    className="h-10 w-10 rounded-full bg-[#E60000] hover:bg-[#c50000] text-white hover:text-white"
                     title="Reset Progress"
                   >
-                    <RotateCcw className="h-4 w-4 md:h-5 md:w-5" />
+                    <RotateCcw className="h-5 w-5" />
                   </Button>
                 </motion.div>
               )}
@@ -115,21 +118,23 @@ export default function TopBar({ onShowAchievements }: TopBarProps) {
                 variant="outline"
                 size="icon"
                 onClick={onShowAchievements}
-                className="rounded-full shadow-sm hover:border-primary hover:text-primary transition-colors h-8 w-8 md:h-10 md:w-10"
+                className="rounded-full shadow-sm hover:border-primary hover:text-primary transition-colors h-10 w-10"
               >
-                <Trophy className="h-4 w-4 md:h-5 md:w-5" />
+                <Trophy className="h-5 w-5" />
               </Button>
               {hasUnseen && (
                 <span className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-red-500 border border-background" />
               )}
             </div>
-            <div className="ml-1 md:ml-2">
+            <div className="ml-2">
               <WalletButton />
             </div>
           </div>
+          )}
 
           {/* Right: mobile gear button */}
-          <div className="flex md:hidden items-center px-4 flex-shrink-0">
+          {isMobile && (
+          <div className="flex items-center px-4 flex-shrink-0">
             <div className="relative">
               <Button
                 variant="ghost"
@@ -145,22 +150,23 @@ export default function TopBar({ onShowAchievements }: TopBarProps) {
               )}
             </div>
           </div>
+          )}
         </div>
       </div>
 
       {/* Mobile settings bottom sheet */}
       <AnimatePresence>
-        {showSettings && (
+        {isMobile && showSettings && (
           <>
             <motion.div
-              className="fixed inset-0 z-40 bg-black/60 md:hidden"
+              className="fixed inset-0 z-40 bg-black/60"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setShowSettings(false)}
             />
             <motion.div
-              className="fixed top-0 left-0 right-0 z-50 md:hidden bg-card border-b border-border rounded-b-2xl overflow-hidden"
+              className="fixed top-0 left-0 right-0 z-50 bg-card border-b border-border rounded-b-2xl overflow-hidden"
               initial={{ y: "-100%" }}
               animate={{ y: 0 }}
               exit={{ y: "-100%" }}

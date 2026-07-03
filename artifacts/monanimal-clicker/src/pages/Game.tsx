@@ -8,6 +8,7 @@ import UpgradeShop from "@/components/UpgradeShop";
 import AchievementsModal from "@/components/AchievementsModal";
 import { useWalletAuth } from "@/lib/useWalletAuth";
 import { useCloudSync } from "@/hooks/useCloudSync";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 function GameInner() {
   useGameLoop();
@@ -16,6 +17,7 @@ function GameInner() {
   const { token, isLoggingIn } = useWalletAuth();
   useCloudSync(token);
   const [showAchievements, setShowAchievements] = useState(false);
+  const isMobile = useIsMobile();
 
   React.useEffect(() => {
     document.documentElement.classList.add("dark");
@@ -32,12 +34,14 @@ function GameInner() {
         <TopBar onShowAchievements={() => setShowAchievements(true)} />
       </div>
 
-      <div className="flex flex-1 overflow-hidden flex-col md:flex-row relative z-10">
+      <div className={`flex flex-1 overflow-hidden relative z-10 ${isMobile ? "flex-col" : "flex-row"}`}>
         <div className="flex-1 relative flex flex-col overflow-hidden">
           <MonanimalCharacter />
         </div>
 
-        <div className="h-16 md:h-full md:w-80 lg:w-96 flex-shrink-0 z-20 shadow-[-10px_0_20px_-10px_rgba(0,0,0,0.2)]">
+        <div
+          className={`flex-shrink-0 z-20 shadow-[-10px_0_20px_-10px_rgba(0,0,0,0.2)] ${isMobile ? "h-16" : "h-full w-96"}`}
+        >
           <UpgradeShop />
         </div>
       </div>

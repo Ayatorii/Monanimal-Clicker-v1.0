@@ -9,6 +9,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Badge } from "@/components/ui/badge";
 import { ITEMS } from "@/assets/index";
 import { Server, Zap, X } from "lucide-react";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const MAX_UPGRADE_LEVEL = 100;
 
@@ -30,6 +31,7 @@ function UpgradeCard({
   onBuy,
   statValue,
   statLabel,
+  isMobile,
 }: {
   item: UpgradeItem;
   owned: number;
@@ -39,6 +41,7 @@ function UpgradeCard({
   onBuy: () => void;
   statValue: number;
   statLabel: string;
+  isMobile: boolean;
 }) {
   return (
     <Card
@@ -52,8 +55,8 @@ function UpgradeCard({
       )}
       onClick={() => !isMaxed && canAfford && onBuy()}
     >
-      <CardContent className="p-2 md:p-3 flex items-center gap-2 md:gap-3">
-        <div className="w-10 h-10 md:w-12 md:h-12 bg-muted/50 rounded-md border border-border flex items-center justify-center overflow-hidden flex-shrink-0">
+      <CardContent className={cn("flex items-center", isMobile ? "p-2 gap-2" : "p-3 gap-3")}>
+        <div className={cn("bg-muted/50 rounded-md border border-border flex items-center justify-center overflow-hidden flex-shrink-0", isMobile ? "w-10 h-10" : "w-12 h-12")}>
           {item.id in ITEMS ? (
             <img
               src={ITEMS[item.id as keyof typeof ITEMS]}
@@ -62,23 +65,24 @@ function UpgradeCard({
               style={item.id === "ai_agent" ? { transform: "translateY(12%) scale(1.15)" } : undefined}
             />
           ) : (
-            <span className="text-xl md:text-2xl">{item.icon}</span>
+            <span className={isMobile ? "text-xl" : "text-2xl"}>{item.icon}</span>
           )}
         </div>
         <div className="flex-1 min-w-0">
           <div className="flex items-center justify-between">
-            <h4 className="text-sm md:text-base font-bold truncate pr-2">{item.name}</h4>
+            <h4 className={cn("font-bold truncate pr-2", isMobile ? "text-sm" : "text-base")}>{item.name}</h4>
             {isMaxed ? (
-              <Badge className="font-mono text-[10px] md:text-xs bg-primary/20 text-primary border border-primary/40">MAX</Badge>
+              <Badge className={cn("font-mono bg-primary/20 text-primary border border-primary/40", isMobile ? "text-[10px]" : "text-xs")}>MAX</Badge>
             ) : (
-              <Badge variant={owned > 0 ? "default" : "outline"} className="font-mono text-[10px] md:text-xs">{owned}</Badge>
+              <Badge variant={owned > 0 ? "default" : "outline"} className={cn("font-mono", isMobile ? "text-[10px]" : "text-xs")}>{owned}</Badge>
             )}
           </div>
-          <p className="text-[10px] md:text-xs text-muted-foreground font-mono mt-0.5 md:mt-1">
+          <p className={cn("text-muted-foreground font-mono", isMobile ? "text-[10px] mt-0.5" : "text-xs mt-1")}>
             +{formatNumber(statValue)} {statLabel}
           </p>
           <p className={cn(
-            "text-xs md:text-sm font-bold font-mono mt-0.5 md:mt-1",
+            "font-bold font-mono",
+            isMobile ? "text-xs mt-0.5" : "text-sm mt-1",
             isMaxed ? "text-primary/50" : canAfford ? "text-accent" : "text-destructive"
           )}>
             {isMaxed ? "Max level reached" : `Cost: ${formatNumber(cost)}`}
@@ -92,6 +96,7 @@ function UpgradeCard({
 export default function UpgradeShop() {
   const { state, buyBuilding, buyPower, calculateUpgradeCost } = useGameState();
   const [openSheet, setOpenSheet] = useState<"buildings" | "power" | null>(null);
+  const isMobile = useIsMobile();
 
   const totalBuildings = BUILDINGS.reduce((s, b) => s + (state.upgrades[b.id] || 0), 0);
   const totalPower = POWER_UPGRADES.reduce((s, p) => s + (state.upgrades[p.id] || 0), 0);
@@ -120,15 +125,49 @@ export default function UpgradeShop() {
           onBuy={() => buyFn(item.id)}
           statValue={type === "buildings" ? (item as any).cps : (item as any).cpc}
           statLabel={type === "buildings" ? "PPS" : "PPC"}
+          isMobile={isMobile}
         />
       );
     });
   };
 
+  if (!isMobile) {
+    return (
+      <div className="flex flex-col h-full bg-card border-l border-border w-full">
+        <div className="p-4 border-b border-border flex items-center justify-center">
+          <h2 className="text-xl font-bold font-mono tracking-tight uppercase text-primary">Upgrades</h2>
+        </div>
+
+        <Tabs defaultValue="buildings" className="flex flex-col flex-1 overflow-hidden">
+          <TabsList className="grid w-full grid-cols-2 p-2 m-2 bg-muted rounded-md h-auto">
+            <TabsTrigger value="buildings" className="py-2 text-sm font-bold uppercase tracking-wider">Gadget</TabsTrigger>
+            <TabsTrigger value="power" className="py-2 text-sm font-bold uppercase tracking-wider">Click Power</TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="buildings" className="flex-1 overflow-hidden m-0 data-[state=active]:flex flex-col">
+            <ScrollArea className="flex-1 px-4">
+              <div className="flex flex-col gap-3 pb-4">
+                {renderCards("buildings")}
+              </div>
+            </ScrollArea>
+          </TabsContent>
+
+          <TabsContent value="power" className="flex-1 overflow-hidden m-0 data-[state=active]:flex flex-col">
+            <ScrollArea className="flex-1 px-4">
+              <div className="flex flex-col gap-3 pb-4">
+                {renderCards("power")}
+              </div>
+            </ScrollArea>
+          </TabsContent>
+        </Tabs>
+      </div>
+    );
+  }
+
   return (
     <>
       {/* ── MOBILE: compact tab strip ── */}
-      <div className="md:hidden h-full bg-card border-t border-border flex">
+      <div className="h-full bg-card border-t border-border flex">
         {/* Infrastructure tab */}
         <button
           className={cn(
@@ -172,7 +211,7 @@ export default function UpgradeShop() {
           <>
             {/* Backdrop */}
             <motion.div
-              className="fixed inset-0 z-40 bg-black/60 md:hidden"
+              className="fixed inset-0 z-40 bg-black/60"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -181,7 +220,7 @@ export default function UpgradeShop() {
 
             {/* Sheet */}
             <motion.div
-              className="fixed bottom-16 left-0 right-0 z-50 md:hidden bg-card rounded-t-2xl flex flex-col overflow-hidden"
+              className="fixed bottom-16 left-0 right-0 z-50 bg-card rounded-t-2xl flex flex-col overflow-hidden"
               style={{ maxHeight: "72vh" }}
               initial={{ y: "100%" }}
               animate={{ y: 0 }}
@@ -214,36 +253,6 @@ export default function UpgradeShop() {
           </>
         )}
       </AnimatePresence>
-
-      {/* ── DESKTOP: side panel with tabs (unchanged) ── */}
-      <div className="hidden md:flex flex-col h-full bg-card border-l border-border w-full md:w-80 lg:w-96">
-        <div className="p-3 md:p-4 border-b border-border flex items-center justify-center">
-          <h2 className="text-base md:text-xl font-bold font-mono tracking-tight uppercase text-primary">Upgrades</h2>
-        </div>
-
-        <Tabs defaultValue="buildings" className="flex flex-col flex-1 overflow-hidden">
-          <TabsList className="grid w-full grid-cols-2 p-1 m-1.5 md:p-2 md:m-2 bg-muted rounded-md h-auto">
-            <TabsTrigger value="buildings" className="py-1.5 md:py-2 text-xs md:text-sm font-bold uppercase tracking-wider">Gadget</TabsTrigger>
-            <TabsTrigger value="power" className="py-1.5 md:py-2 text-xs md:text-sm font-bold uppercase tracking-wider">Click Power</TabsTrigger>
-          </TabsList>
-
-          <TabsContent value="buildings" className="flex-1 overflow-hidden m-0 data-[state=active]:flex flex-col">
-            <ScrollArea className="flex-1 px-3 md:px-4">
-              <div className="flex flex-col gap-2 md:gap-3 pb-4">
-                {renderCards("buildings")}
-              </div>
-            </ScrollArea>
-          </TabsContent>
-
-          <TabsContent value="power" className="flex-1 overflow-hidden m-0 data-[state=active]:flex flex-col">
-            <ScrollArea className="flex-1 px-3 md:px-4">
-              <div className="flex flex-col gap-2 md:gap-3 pb-4">
-                {renderCards("power")}
-              </div>
-            </ScrollArea>
-          </TabsContent>
-        </Tabs>
-      </div>
     </>
   );
 }
