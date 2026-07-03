@@ -6,11 +6,16 @@ import TopBar from "@/components/TopBar";
 import MonanimalCharacter from "@/components/MonanimalCharacter";
 import UpgradeShop from "@/components/UpgradeShop";
 import AchievementsModal from "@/components/AchievementsModal";
+import { ConnectButton } from "@rainbow-me/rainbowkit";
+import { useWalletAuth } from "@/lib/useWalletAuth";
+import { useCloudSync } from "@/hooks/useCloudSync";
 
 function GameInner() {
   useGameLoop();
   usePreloadImages();
   const { state } = useGameState();
+  const { token, isLoggingIn } = useWalletAuth();
+  useCloudSync(token);
   const [showAchievements, setShowAchievements] = useState(false);
 
   React.useEffect(() => {
@@ -19,10 +24,16 @@ function GameInner() {
 
   return (
     <div className="h-[100dvh] w-full flex flex-col bg-background text-foreground overflow-hidden font-sans relative">
-      <AchievementsModal open={showAchievements} onOpenChange={setShowAchievements} />
+      <AchievementsModal
+        open={showAchievements}
+        onOpenChange={setShowAchievements}
+      />
 
-      <div className="relative z-20">
+      <div className="relative z-20 flex items-center justify-between">
         <TopBar onShowAchievements={() => setShowAchievements(true)} />
+        <div className="px-4">
+          <ConnectButton />
+        </div>
       </div>
 
       <div className="flex flex-1 overflow-hidden flex-col md:flex-row relative z-10">

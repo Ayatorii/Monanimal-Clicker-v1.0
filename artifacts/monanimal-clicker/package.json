@@ -73,5 +73,10 @@
     "vite": "catalog:",
     "wouter": "^3.3.5",
     "zod": "catalog:"
+  },
+  "dependencies": {
+    "@rainbow-me/rainbowkit": "^2.2.11",
+    "viem": "^2.54.1",
+    "wagmi": "^3.6.21"
   }
 }

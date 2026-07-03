@@ -1,38 +1,33 @@
-import { Router } from "express";
-import { eq } from "drizzle-orm";
-import { db } from "../lib/db";
-import { players } from "../lib/schema";
-import { requireAuth, AuthedRequest } from "../middlewares/auth";
+import { Router } from 'express';
+import { eq } from 'drizzle-orm';
+import { db } from '../lib/db';
+import { players } from '../lib/schema';
+import { requireAuth, AuthedRequest } from '../middlewares/auth';
 
 const router = Router();
 
-router.get("/me", requireAuth, async (req: AuthedRequest, res) => {
+router.get('/me', requireAuth, async (req: AuthedRequest, res) => {
   const player = await db.query.players.findFirst({
     where: eq(players.walletAddress, req.walletAddress!),
   });
-  res.json(player);
+  return res.json(player);
 });
 
-router.post("/progress", requireAuth, async (req: AuthedRequest, res) => {
-  const { balance, clickPower, rank, energy } = req.body;
+router.post('/progress', requireAuth, async (req: AuthedRequest, res) => {
+  const { gameState } = req.body;
 
-  // Lesson 10: никогда не доверяй клиенту без проверки типов/границ
-  if (
-    typeof balance !== "number" ||
-    balance < 0 ||
-    typeof clickPower !== "number" ||
-    clickPower < 1 ||
-    typeof rank !== "number" ||
-    rank < 0 ||
-    typeof energy !== "number" ||
-    energy < 0
-  ) {
-    return res.status(400).json({ error: "invalid progress payload" });
+  if (typeof gameState !== 'object' || gameState === null || Array.isArray(gameState)) {
+    return res.status(400).json({ error: 'invalid game state' });
   }
 
-  await db
-    .update(players)
-    .set({ balance, clickPower, rank, energy })
+  // Lesson 10: грубая защита от мусорных/огромных payload
+  const size = JSON.stringify(gameState).length;
+  if (size > 200_000) {
+    return res.status(400).json({ error: 'game state too large' });
+  }
+
+  await db.update(players)
+    .set({ gameState })
     .where(eq(players.walletAddress, req.walletAddress!));
 
   return res.json({ ok: true });
