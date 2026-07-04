@@ -22,8 +22,8 @@ export function requireAuth(
       walletAddress: string;
     };
     req.walletAddress = payload.walletAddress;
-    next();
+    return next();
   } catch {
-    res.status(401).json({ error: "invalid or expired token" });
+    return res.status(401).json({ error: "invalid or expired token" });
   }
 }
