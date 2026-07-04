@@ -45,7 +45,7 @@ export default function TopBar({ onShowAchievements }: TopBarProps) {
               <h1 className="font-black text-lg md:text-xl tracking-tighter uppercase bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
                 Monanimal
               </h1>
-              <span className="text-[10px] font-mono text-white/70 tracking-widest">Alpha v1.1.0</span>
+              <span className="text-[10px] font-mono text-white/70 tracking-widest">ALPHA v1.1.0</span>
             </div>
           </div>
 
@@ -244,7 +244,7 @@ export default function TopBar({ onShowAchievements }: TopBarProps) {
               </div>
 
               <p className="text-center text-[12px] text-white/60 font-mono pt-2">
-                Alpha v1.1.0
+                ALPHA v1.1.0
               </p>
             </motion.div>
           </>
