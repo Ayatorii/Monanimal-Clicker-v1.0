@@ -3,7 +3,6 @@ import {
   rainbowWallet,
   metaMaskWallet,
   rabbyWallet,
-  okxWallet,
   walletConnectWallet,
   coinbaseWallet,
 } from "@rainbow-me/rainbowkit/wallets";
