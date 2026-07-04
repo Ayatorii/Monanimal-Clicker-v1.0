@@ -13,7 +13,8 @@ const rainbowKitTheme = darkTheme({
   accentColor: "hsl(252, 100%, 71%)",
   accentColorForeground: "white",
   borderRadius: "medium",
-  overlayBlur: "small",
+  // overlayBlur removed: backdrop-filter on position:fixed elements causes
+  // non-clickable modal bug on mobile Safari/Chrome (new containing block).
 });
 rainbowKitTheme.colors.connectButtonBackground = "hsl(240, 10%, 12%)";
 rainbowKitTheme.colors.connectButtonInnerBackground = "hsl(240, 10%, 12%)";

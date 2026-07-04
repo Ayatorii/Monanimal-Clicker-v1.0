@@ -5,6 +5,7 @@ import { formatNumber } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Trophy, Settings, X, RotateCcw } from "lucide-react";
 import WalletButton from "@/components/WalletButton";
+import { ConnectButton } from "@rainbow-me/rainbowkit";
 
 interface TopBarProps {
   onShowAchievements: () => void;
@@ -237,9 +238,49 @@ export default function TopBar({ onShowAchievements }: TopBarProps) {
                   <span className="text-muted-foreground text-xs">›</span>
                 </button>
 
-                {/* Connect Wallet */}
+                {/* Connect Wallet — sheet closes BEFORE modal opens to avoid
+                    fixed-positioning/stacking-context conflict on mobile Safari */}
                 <div className="pt-3">
-                  <WalletButton fullWidth />
+                  <ConnectButton.Custom>
+                    {({ account, chain, openAccountModal, openChainModal, openConnectModal, authenticationStatus, mounted }) => {
+                      const ready = mounted && authenticationStatus !== "loading";
+                      const connected =
+                        ready &&
+                        account &&
+                        chain &&
+                        (!authenticationStatus || authenticationStatus === "authenticated");
+                      const cls = "flex items-center justify-center w-full rounded-md font-bold text-sm whitespace-nowrap px-4 py-2.5 leading-none transition-opacity hover:opacity-90";
+                      return (
+                        <div {...(!ready && { "aria-hidden": true, style: { opacity: 0, pointerEvents: "none", userSelect: "none" } })}>
+                          {!connected ? (
+                            <button
+                              type="button"
+                              className={`${cls} bg-primary text-primary-foreground`}
+                              onClick={() => { setShowSettings(false); openConnectModal(); }}
+                            >
+                              Connect Wallet
+                            </button>
+                          ) : chain.unsupported ? (
+                            <button
+                              type="button"
+                              className={`${cls} bg-destructive text-destructive-foreground`}
+                              onClick={() => { setShowSettings(false); openChainModal(); }}
+                            >
+                              Wrong Network
+                            </button>
+                          ) : (
+                            <button
+                              type="button"
+                              className={`${cls} bg-primary text-primary-foreground`}
+                              onClick={() => { setShowSettings(false); openAccountModal(); }}
+                            >
+                              {account.displayName}
+                            </button>
+                          )}
+                        </div>
+                      );
+                    }}
+                  </ConnectButton.Custom>
                 </div>
               </div>
 
