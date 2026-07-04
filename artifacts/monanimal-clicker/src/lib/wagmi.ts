@@ -5,7 +5,7 @@ import {
   rabbyWallet,
   okxWallet,
   walletConnectWallet,
-  baseAccountWallet,
+  coinbaseWallet,
 } from "@rainbow-me/rainbowkit/wallets";
 import { createConfig, http } from "wagmi";
 import { defineChain } from "viem";
@@ -30,7 +30,7 @@ const connectors = connectorsForWallets(
         okxWallet,
         rainbowWallet,
         walletConnectWallet,
-        baseAccountWallet,
+        coinbaseWallet,
       ],
     },
   ],
