@@ -5,6 +5,7 @@ import {
   rabbyWallet,
   walletConnectWallet,
   coinbaseWallet,
+  okxWallet,
 } from "@rainbow-me/rainbowkit/wallets";
 import { createConfig, http } from "wagmi";
 import { defineChain } from "viem";
