@@ -1,4 +1,13 @@
-import { getDefaultConfig } from "@rainbow-me/rainbowkit";
+import { connectorsForWallets } from "@rainbow-me/rainbowkit";
+import {
+  rainbowWallet,
+  metaMaskWallet,
+  rabbyWallet,
+  okxWallet,
+  walletConnectWallet,
+  baseAccountWallet,
+} from "@rainbow-me/rainbowkit/wallets";
+import { createConfig, http } from "wagmi";
 import { defineChain } from "viem";
 
 export const monadTestnet = defineChain({
@@ -11,8 +20,30 @@ export const monadTestnet = defineChain({
   },
 });
 
-export const wagmiConfig = getDefaultConfig({
-  appName: "Monanimal Clicker",
-  projectId: "e022ea00c850786ae6763484841eb995",
+const connectors = connectorsForWallets(
+  [
+    {
+      groupName: "Popular",
+      wallets: [
+        rabbyWallet,
+        metaMaskWallet,
+        okxWallet,
+        rainbowWallet,
+        walletConnectWallet,
+        baseAccountWallet,
+      ],
+    },
+  ],
+  {
+    appName: "Monanimal Clicker",
+    projectId: "e022ea00c850786ae6763484841eb995", // тот же, что уже используешь
+  },
+);
+
+export const wagmiConfig = createConfig({
+  connectors,
   chains: [monadTestnet],
+  transports: {
+    [monadTestnet.id]: http(),
+  },
 });
